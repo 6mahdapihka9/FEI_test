@@ -1,10 +1,163 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta charset="UTF-8">
-        <title>Title</title>
+        <title>Test</title>
+        <link rel="stylesheet" href="styles.css">
     </head>
     <body>
+        <div id="MSI2020">
+            <h2>MSI 2020</h2>
+        </div>
+        <div id="__main">
+            <div style="padding: 20px">
+                <h1>Hey!</h1>
+                <h2>Let's try to find a joke for you:</h2>
+                <div class="menu">
+                    <div class="menu-var">
+                        <div id="Random" style="display: inline-flex;" onclick="changeMenuVar('Random')">
+                            <div id="circle-outer-random" class="circle-outer">
+                                <div id="circle-inner-random" class="circle-inner">
+                                </div>
+                            </div>
+                            <div style="margin-left: 15px">Random</div>
+                        </div>
+                    </div>
+                    <div class="menu-var">
+                        <div id="FromCategories" style="display: inline-flex;" onclick="changeMenuVar('FromCategories')">
+                            <div id="circle-outer-categories" class="circle-outer">
+                                <div id="circle-inner-categories" class="circle-inner">
+                                </div>
+                            </div>
+                            <div style="margin-left: 15px">From categories</div>
+                        </div>
+                        <div id="variantsMenu" hidden>
+                            <button id="varAnimal" onclick="chooseVar('varAnimal')">Animal</button>
+                            <button id="varCareer" onclick="chooseVar('varCareer')">Career</button>
+                            <button id="varCelebrity" onclick="chooseVar('varCelebrity')">Celebrity</button>
+                            <button id="varDev" onclick="chooseVar('varDev')">Dev</button>
+                        </div>
+                    </div>
+                    <div class="menu-var">
+                        <div id="Search" style="display: inline-flex;" onclick="changeMenuVar('Search')">
+                            <div id="circle-outer-search" class="circle-outer">
+                                <div id="circle-inner-search" class="circle-inner">
+                                </div>
+                            </div>
+                            <div  style="margin-left: 15px">Search</div>
+                        </div>
+                    </div>
+                    <textarea placeholder="Free text search..." hidden></textarea>
+                </div>
+                <button id="getAJoke">Get a joke</button>
 
+
+
+                <div id="jokesDiv" class="jokes">
+                    <div class="outer-jokes-div">
+                        <img class="heart" src="heartEmptyGrey.png" width="20px">
+                        <div class="middle-jokes-div">
+                            <img src="commentWhite.png" width="40px" height="40px">
+                            <div class="inner-jokes-div">
+                                <a href="#">ID: XNaAxUduSw6zANDaIEab7A</a>
+                                <p>No one truly knows who's Chuck Norris' real father. No one is biologically strong enough for this. He must've conceived himself.</p>
+                                <div>
+                                    <p class="lastUpdateP">
+                                        Last update: 1923 hours ago
+                                    </p>
+                                    <button>Celebrity</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="outer-jokes-div">
+                        <img class="heart" src="heartEmptyGrey.png" width="20px">
+                        <div class="middle-jokes-div">
+                            <img src="commentWhite.png" width="40px" height="40px">
+                            <div class="inner-jokes-div">
+                                <a href="#">ID: XNaAxUduSw6zANDaIEab7A</a>
+                                <p>No one truly knows who's Chuck Norris' real father. No one is biologically strong enough for this. He must've conceived himself.</p>
+                                <div>
+                                    <p class="lastUpdateP">
+                                        Last update: 1923 hours ago
+                                    </p>
+                                    <button>Celebrity</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="outer-jokes-div">
+                        <img class="heart" src="heartEmptyGrey.png" width="20px">
+                        <div class="middle-jokes-div">
+                            <img src="commentWhite.png" width="40px" height="40px">
+                            <div class="inner-jokes-div">
+                                <a href="#">ID: XNaAxUduSw6zANDaIEab7A</a>
+                                <p>No one truly knows who's Chuck Norris' real father. No one is biologically strong enough for this. He must've conceived himself.</p>
+                                <div>
+                                    <p class="lastUpdateP">
+                                        Last update: 1923 hours ago
+                                    </p>
+                                    <button>Celebrity</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="outer-jokes-div">
+                        <img class="heart" src="heartEmptyGrey.png" width="20px">
+                        <div class="middle-jokes-div">
+                            <img src="commentWhite.png" width="40px" height="40px">
+                            <div class="inner-jokes-div">
+                                <a href="#">ID: XNaAxUduSw6zANDaIEab7A</a>
+                                <p>No one truly knows who's Chuck Norris' real father. No one is biologically strong enough for this. He must've conceived himself.</p>
+                                <div>
+                                    <p class="lastUpdateP">
+                                        Last update: 1923 hours ago
+                                    </p>
+                                    <button>Celebrity</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="__wall"></div>
+        <div id="__aside">
+            <div style="padding: 20px">
+                <div class="fav">
+                    <div>
+                        <img src="commentGrey.png" width="40px">
+                        <p>No one truly knows who's Chuck Norris' real father. No one is biologically strong enough for this. He must've conceived himself.</p>
+                    </div>
+                    <div>
+                        <img src="commentGrey.png" width="40px">
+                        <p>No one truly knows who's Chuck Norris' real father. No one is biologically strong enough for this. He must've conceived himself.</p>
+                    </div>
+                    <div>
+                        <img src="commentGrey.png" width="40px">
+                        <p>No one truly knows who's Chuck Norris' real father. No one is biologically strong enough for this. He must've conceived himself.</p>
+                    </div>
+                    <div>
+                        <img src="commentGrey.png" width="40px">
+                        <p>No one truly knows who's Chuck Norris' real father. No one is biologically strong enough for this. He must've conceived himself.</p>
+                    </div>
+                    <div>
+                        <img src="commentGrey.png" width="40px">
+                        <p>No one truly knows who's Chuck Norris' real father. No one is biologically strong enough for this. He must've conceived himself.</p>
+                    </div>
+                    <div>
+                        <img src="commentGrey.png" width="40px">
+                        <p>No one truly knows who's Chuck Norris' real father. No one is biologically strong enough for this. He must've conceived himself.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="FavoriteButton" onclick="showFavorite()" style="display: inline-flex;">
+            <div id="circle">
+            </div>
+            <div style="margin-left: 15px; font-weight: 500; font-size: 28px; line-height: 44px;">Favorite</div>
+        </div>
     </body>
+    <script src="script1.js"></script>
 </html>

@@ -1,0 +1,218 @@
+body{
+    margin: 0;
+    font-family: Roboto;
+    font-style: normal;
+    color: #333333;
+}
+#__main{
+    box-sizing: border-box;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+#__aside{
+    box-sizing: border-box;
+    position: absolute;
+    background-color: #F8F8F8;
+    top: 0;
+    right: 0;
+    height: 100%;
+}
+#MSI2020{
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 28px;
+    position: absolute;
+    top: 40px;
+    left: 140px;
+}
+#FavoriteButton{
+    position: absolute;
+    top: 40px;
+    right: 140px;
+}
+@media (min-width: 1239px) {
+
+    #__main {
+        width: 100%;
+        padding: 126px 120px 20px 120px;
+    }
+    #__aside {
+        display: inline-block;
+        padding: 68px 20px 20px 20px;
+        width: 480px;
+    }
+    #__wall{
+        position: fixed;
+        top: 0;
+        right: 0;
+        background-color: #F8F8F8;
+        width: 480px;
+        height: 100%;
+    }
+}
+@media (max-width: 1239px) and (min-width: 470px) {
+    #__main{
+        padding: 106px 20px 20px 20px;
+    }
+    #__aside {
+        padding: 68px 20px 20px 20px;
+        width: 480px;
+    }
+    #__wall{
+        position: fixed;
+        top: 0;
+        left: 0;
+        display: none;
+        background-color: black;
+        opacity: 0.4;
+        width: 100%;
+        height: 100%;
+    }
+    #MSI2020{
+        position: absolute;
+        top: 40px;
+        left: 140px;
+    }
+    #FavoriteButton{
+        position: absolute;
+        top: 40px;
+        right: 40px;
+    }
+}
+@media (max-width: 469px) {
+    #__main {
+        width: 100%;
+        padding: 106px 0 0 0;
+    }
+    #__aside {
+        padding: 68px 0 0 0;
+        width: 100%;
+        display: none;
+    }
+    #MSI2020{
+        position: absolute;
+        top: 20px;
+        left: 20px;
+    }
+    #FavoriteButton{
+        position: absolute;
+        top: 20px;
+        right: 20px;
+
+    }
+}
+@media (max-width: 1239px){
+    #__wall{
+    }
+    #__aside{
+        display: none;
+        transition: 0.3s;
+    }
+    #circle{
+        display: inline-block;
+        width: 28px;
+        height: 28px;
+        background-color: #000;
+        border-radius: 50%;
+    }
+}
+
+
+.circle-outer{
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background-color: #FFF;
+    border-radius: 50%;
+    border: 2px solid #ABABAB;
+    padding: 0px;
+}
+.circle-inner{
+    width: 10px;
+    height: 10px;
+    margin: 3px;
+    background-color: #FFF;
+    border-radius: 50%;
+}
+h1, h2{
+    margin: 0;
+}
+h1{
+    font-weight: bold;
+    font-size: 32px;
+    line-height: 44px;
+}
+h2{
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 44px;
+}
+p {
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 26px;
+}
+#getAJoke{
+    width: 152px;
+    height: 42px;
+    background: linear-gradient(92.01deg, #8EA7FF 0%, #7291FF 100%);
+    border-radius: 10px;
+    font-family: Roboto, serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 22px;
+    color: #FFFFFF;
+}
+
+
+
+.jokes div{
+    position: relative;
+    background: #F8F8F8;
+    border-radius: 20px;
+    padding: 40px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+textarea{
+    width: 100%;
+    resize: none;
+    border-radius: 10px;
+    border: 2px solid #000;
+}
+.heart{
+    float: right;
+}
+.outer-jokes-div div{
+    margin: 0;
+    padding: 0;
+    background-color: transparent;
+}
+.middle-jokes-div div{
+    display: inline-flex;
+    all: initial;
+}
+.inner-jokes-div div{
+    all: initial;
+}
+
+.fav div{
+    background: #ffffff;
+    border-radius: 20px;
+    margin: 20px;
+    padding: 40px;
+}
+.menu button{
+    margin: 20px 10px 20px 0;
+    border: 2px solid #F8F8F8;
+    background-color: #FFF;
+    border-radius: 6px;
+    padding: 6px 15px 6px 15px;
+    color: #ABABAB;
+}
+.menu {
+    margin-top: 46px;
+    margin-bottom: 20px;
+}
