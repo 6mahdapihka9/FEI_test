@@ -189,6 +189,7 @@ textarea{
     margin: 0;
     padding: 0;
     background-color: transparent;
+    pointer-events: none;
 }
 .middle-jokes-div div{
     display: inline-flex;
