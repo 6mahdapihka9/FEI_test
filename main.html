@@ -15,7 +15,7 @@
                 <h1>Hey!</h1>
                 <h2>Let's try to find a joke for you:</h2>
                 <div class="menu">
-                    <div class="menu-var">
+                    <div class="menu-var" style="margin: 10px 0 10px 0;">
                         <div id="Random" style="display: inline-flex;" onclick="changeMenuVar('Random')">
                             <div id="circle-outer-random" class="circle-outer">
                                 <div id="circle-inner-random" class="circle-inner">
@@ -24,7 +24,7 @@
                             <div style="margin-left: 15px">Random</div>
                         </div>
                     </div>
-                    <div class="menu-var">
+                    <div class="menu-var" style="margin: 10px 0 10px 0;">
                         <div id="FromCategories" style="display: inline-flex;" onclick="changeMenuVar('FromCategories')">
                             <div id="circle-outer-categories" class="circle-outer">
                                 <div id="circle-inner-categories" class="circle-inner">
@@ -32,14 +32,16 @@
                             </div>
                             <div style="margin-left: 15px">From categories</div>
                         </div>
-                        <div id="variantsMenu" hidden>
-                            <button id="varAnimal" onclick="chooseVar('varAnimal')">Animal</button>
-                            <button id="varCareer" onclick="chooseVar('varCareer')">Career</button>
-                            <button id="varCelebrity" onclick="chooseVar('varCelebrity')">Celebrity</button>
-                            <button id="varDev" onclick="chooseVar('varDev')">Dev</button>
-                        </div>
                     </div>
-                    <div class="menu-var">
+                    <div id="variantsMenu" hidden>
+                        <!--
+                        <button id="varAnimal" onclick="chooseVar('varAnimal')">Animal</button>
+                        <button id="varCareer" onclick="chooseVar('varCareer')">Career</button>
+                        <button id="varCelebrity" onclick="chooseVar('varCelebrity')">Celebrity</button>
+                        <button id="varDev" onclick="chooseVar('varDev')">Dev</button>
+                        -->
+                    </div>
+                    <div class="menu-var" style="margin: 10px 0 10px 0;">
                         <div id="Search" style="display: inline-flex;" onclick="changeMenuVar('Search')">
                             <div id="circle-outer-search" class="circle-outer">
                                 <div id="circle-inner-search" class="circle-inner">
@@ -51,71 +53,51 @@
                     <textarea placeholder="Free text search..." hidden></textarea>
                 </div>
                 <button id="getAJoke" onclick="getJoke(); return false;">Get a joke</button>
-
-
-
                 <div id="jokes-container" class="jokes">
-                    <div class="outer-jokes-div" >
-                        <img class="heart" id="XNaAxUduSw6zANDaIEab7A" src="heartEmptyGrey.png" width="20px" onclick="favor(this.id)">
-                        <div class="middle-jokes-div">
-                            <img src="commentWhite.png" width="40px" height="40px">
-                            <div class="inner-jokes-div">
-                                <p>ID:</p>
-                                <a href="http://google.com">XNaAxUduSw6zANDaIEab7A</a>
-                                <p>No one truly knows who's Chuck Norris' real father. No one is biologically strong enough for this. He must've conceived himself.</p>
-                                <div>
-                                    <p class="lastUpdateP">
-                                        Last update: 1923 hours ago
-                                    </p>
-                                    <div>Celebrity</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
 
 
-                    <div class="outer-jokes-div" >
-                        <img class="heart" id="ehmjvhrsekvcgkuservc" src="heartEmptyGrey.png" width="20px" onclick="favor(this.id)">
-                        <div class="middle-jokes-div">
-                            <img src="commentWhite.png" width="40px" height="40px">
-                            <div class="inner-jokes-div">
-                                <p>ID:</p>
-                                <a href="http://google.com">XNaAxUduSw6zANDaIEab7A</a>
-                                <p>No one truly knows who's Chuck Norris' real father. No one is biologically strong enough for this. He must've conceived himself.</p>
-                                <div>
-                                    <p class="lastUpdateP">
-                                        Last update: 1923 hours ago
-                                    </p>
-                                    <div>Celebrity</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
         <div id="__wall"></div>
         <div id="__aside">
-            <div style="padding: 20px">
-                <div id="fav-container" class="fav">
-
-
+            <div id="FavoriteButton" onclick="showAside()" style="display: inline-flex;">
+                <div id="circle">
                 </div>
+                <p style="margin: 0 0 0 15px; font-weight: 500; font-size: 28px; line-height: 28px;">Favorite</p>
             </div>
-        </div>
-        <div id="FavoriteButton" onclick="showFavorite()" style="display: inline-flex;">
-            <div id="circle">
+            <div id="fav-container" class="fav">
+
+
             </div>
-            <div style="margin-left: 15px; font-weight: 500; font-size: 28px; line-height: 44px;">Favorite</div>
         </div>
     </body>
     <script src="script1.js"></script>
 </html>
 <!--
-                    <div>
-                        <img src="commentGrey.png" width="40px">
-                        <img class="heart" src="heartFullWhite.png" width="20px">
-                        <p>No one truly knows who's Chuck Norris' real father. No one is biologically strong enough for this. He must've conceived himself.</p>
-                    </div>
-                    -->
+<div class="outer-jokes-div" >
+    <img class="heart" id="XNaAxUduSw6zANDaIEab7A" src="heartEmptyGrey.png"  onclick="favor(this.id)">
+    <div class="middle-jokes-div" style="display: inline-flex; margin-top: 10px">
+        <img class="commentImage" src="commentWhite.png">
+        <div style="margin-left: 20px">
+            <div class="id-text">
+                <p class="ids-p">ID:</p>
+                <a href="https://api.chucknorris.io/jokes/XNaAxUduSw6zANDaIEab7A">XNaAxUduSw6zANDaIEab7A</a>
+            </div>
+            <p>No one truly knows who's Chuck Norris' real father. No one is biologically strong enough for this. He must've conceived himself.</p>
+            <p class="lastUpdateP">
+                Last update: 1923 hours ago
+            </p>
+            <p class="categoriesOfDiv">CELEBRITY</p>
+        </div>
+    </div>
+</div>
+
+
+<div>
+    <img src="commentGrey.png" width="40px">
+    <img class="heart" src="heartFullWhite.png" width="20px">
+    <p>No one truly knows who's Chuck Norris' real father. No one is biologically strong enough for this. He must've conceived himself.</p>
+</div>
+-->
