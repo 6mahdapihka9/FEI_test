@@ -238,7 +238,15 @@ p {
     }
 }
 @media (max-width: 1239px){
-    #__wall{
+    #__asideBackground{
+        position: fixed;
+        top: 0;
+        right: 0;
+        display: none;
+        background-color: #F8F8F8;
+        opacity: 1;
+        width: 480px;
+        height: 100%;
     }
     #__aside{
         display: none;

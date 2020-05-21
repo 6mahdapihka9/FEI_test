@@ -1,6 +1,7 @@
 //DOM elements to work with
 const __main = document.getElementById('__main');
 const __aside = document.getElementById('__aside');
+const __asideBackground = document.getElementById('__asideBackground');
 const __wall = document.getElementById('__wall');
 const MSI2020 = document.getElementById('MSI2020');
 const variantsMenu = document.getElementById('variantsMenu');
@@ -28,23 +29,16 @@ let arrOfJokes = [];
 let arrOfFavs = [];
 
 let favorites = [];
-let cookies;
 
 //initialization
 if (+window.innerWidth > 1240)
     __main.style.width = +window.innerWidth - 480 + "px";
 getAllCategories();
 updateFavorites();
-//for (let key in favorites)
-    //console.log(favorites[key]);
 if (favorites.length > 0) {
     arrOfFavs = [];
     getJokeWithID(favorites.length - 1);
 }
-
-if (arrOfFavs && arrOfFavs !== [])
-    for (let key in arrOfFavs)
-        fav_container.append( buildFavDiv(arrOfFavs[key].id, arrOfFavs[key].value, arrOfFavs[key].updated_at, arrOfFavs[key].categories[0]) );
 
 //main functions
 function buildJokeDiv(isFav, jokesID, jokesText, lastUpdateTime, _category) {
@@ -176,7 +170,6 @@ function getJokeWithID(number_length) {
     request.send();
     request.onload = function() {
         arrOfFavs.push(request.response);
-        console.log(number_length);
         if (number_length < 1) {
             if (arrOfFavs && arrOfFavs !== [])
                 for (let key in arrOfFavs)
@@ -245,15 +238,13 @@ function like_dislike(thisID, thisType) {
             favorites.push(thisID);
     }
     updateCookies();
+
+    //ToDo
+    //this shit is not working properly!!!!!!!!!!!!!!!!!!!!!!!!!!
     refreshHearts();
-    /*
-    //console.log(favorites.length);
-    if (favorites !== undefined && favorites !== [])
-        for (let key in favorites) {
-            if (favorites[key] !== "undefined")
-                getJokeWithID(favorites[key]);
-        }
-     */
+    //this shit is not working properly!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
     if (favorites.length > 0){
         arrOfFavs = [];
         getJokeWithID(favorites.length-1);
@@ -274,11 +265,12 @@ function updateFavorites() {
 function refreshHearts() {
     let allHeartElements = document.getElementsByClassName('heart');
     let type, _id;
-    const isEqual = (element) => element === _id;
-    for (let key = 0; key < allHeartElements; key++){
+
+    for (let key = 0; key < allHeartElements.length; key++){
         if (allHeartElements[key].id !== undefined) {
             type = allHeartElements[key].id.slice(allHeartElements[key].id.length - 4, allHeartElements[key].id.length);
             _id = allHeartElements[key].id.slice(0, allHeartElements[key].id.length - 4);
+            let isEqual = (element) => element === _id;
             if (type === "_reg" && favorites.some(isEqual) && allHeartElements[key].src.charAt(allHeartElements[key].src.length - 9) === "F")
                 allHeartElements[key].src = "heartEGrey.png";
         }
@@ -321,12 +313,14 @@ function showAside(){
     if (window.innerWidth < 1239)
         if (__aside.style.display === 'none' || __aside.style.display === "") {
             __main.style.position = 'fixed';
-            __aside.style.display = 'inline-block';
             __wall.style.display = 'inline';
+            __asideBackground.style.display = 'inline-block';
+            __aside.style.display = 'inline-block';
             MSI2020.style.position = 'fixed';
         } else {
             __main.style.position = 'absolute';
             __wall.style.display = 'none';
+            __asideBackground.style.display = 'none';
             __aside.style.display = 'none';
             MSI2020.style.position = 'absolute';
         }
