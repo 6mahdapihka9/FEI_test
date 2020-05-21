@@ -3,13 +3,10 @@ const __main = document.getElementById('__main');
 const __aside = document.getElementById('__aside');
 const __wall = document.getElementById('__wall');
 const MSI2020 = document.getElementById('MSI2020');
-
 const variantsMenu = document.getElementById('variantsMenu');
 const textArea = document.getElementsByTagName('textarea')[0];
-
 const jokes_container = document.getElementById('jokes-container');
 const fav_container = document.getElementById('fav-container');
-
 let allOuterCircles = document.getElementsByClassName('circle-outer');
 let allInnerCircles = document.getElementsByClassName('circle-inner');
 
@@ -21,32 +18,44 @@ let allCategoriesRequestURL = "https://api.chucknorris.io/jokes/categories";
 let searchRequestURL = "https://api.chucknorris.io/jokes/search?query=";
 let request = new XMLHttpRequest();
 
-
 //special variables
-let allCategories = [];
 let variant = 'Random';
-let arrOfJokesDivs = [];
-let arrOfFavDivs = [];
-let chosenCategory;
+let allCategories = [];
+let chosenCategory = 'animal';
+let searchTest;
 let randomJoke;
+let arrOfJokes = [];
+let arrOfFavs = [];
 
+let favorites = [];
+let cookies;
 
 //initialization
-if (+window.innerWidth > 1239)
+if (+window.innerWidth > 1240)
     __main.style.width = +window.innerWidth - 480 + "px";
 getAllCategories();
-//favor();
+updateFavorites();
+//for (let key in favorites)
+    //console.log(favorites[key]);
+if (favorites.length > 0) {
+    arrOfFavs = [];
+    getJokeWithID(favorites.length - 1);
+}
 
-//DONE
-function buildJokeDiv(isFav, jokesID, jokesText, lastUpdateTime, _categorie) {
+if (arrOfFavs && arrOfFavs !== [])
+    for (let key in arrOfFavs)
+        fav_container.append( buildFavDiv(arrOfFavs[key].id, arrOfFavs[key].value, arrOfFavs[key].updated_at, arrOfFavs[key].categories[0]) );
+
+//main functions
+function buildJokeDiv(isFav, jokesID, jokesText, lastUpdateTime, _category) {
     let outerDiv = document.createElement('div');
     outerDiv.className = "outer-jokes-div reg";
 
     let heartImage = document.createElement('img');
-    heartImage.src = (isFav)? "heartFullGrey.png" : "heartEmptyGrey.png";
-    heartImage.id = jokesID;
+    heartImage.src = (isFav)? "heartFGrey.png" : "heartEGrey.png";
+    heartImage.id = jokesID + "_reg";
     heartImage.className = "heart";
-    heartImage.onclick = () => like();
+    heartImage.onclick = () => like_dislike(jokesID, "_reg");
 
     let middleDiv = document.createElement('div');
     middleDiv.className = "middle-jokes-div reg";
@@ -83,10 +92,10 @@ function buildJokeDiv(isFav, jokesID, jokesText, lastUpdateTime, _categorie) {
 
     innerDiv.append(idDiv, textP, lastUpdateP);
 
-    if (_categorie) {
+    if (_category) {
         let categoriesP = document.createElement('p');
         categoriesP.className = "categoriesOfDiv";
-        categoriesP.innerText = _categorie.toUpperCase();
+        categoriesP.innerText = _category.toUpperCase();
         innerDiv.append(categoriesP);
     }
 
@@ -96,16 +105,16 @@ function buildJokeDiv(isFav, jokesID, jokesText, lastUpdateTime, _categorie) {
 
     return outerDiv;
 }
-function buildFavDiv(jokesID, jokesText, lastUpdateTime, _categorie) {
+function buildFavDiv(jokesID, jokesText, lastUpdateTime, _category) {
     let outerDiv = document.createElement('div');
     outerDiv.className = "fav-outer-jokes-div";
     outerDiv.style = "margin: 20px 20px 0 20px; padding: 20px";
 
     let heartImage = document.createElement('img');
-    heartImage.src = "heartFullWhite.png";
-    heartImage.id = jokesID;
+    heartImage.src = "heartFWhite.png";
+    heartImage.id = jokesID + "_fav";
     heartImage.className = "heart";
-    heartImage.onclick = () => dislike();
+    heartImage.onclick = () => like_dislike(jokesID, "_fav");
 
     let middleDiv = document.createElement('div');
     middleDiv.className = "middle-jokes-div fav";
@@ -141,10 +150,10 @@ function buildFavDiv(jokesID, jokesText, lastUpdateTime, _categorie) {
 
     innerDiv.append(idDiv, textP, lastUpdateP);
 
-    if (_categorie) {
+    if (_category) {
         let categoriesP = document.createElement('p');
         categoriesP.className = "categoriesOfDiv";
-        categoriesP.innerText = _categorie.toUpperCase();
+        categoriesP.innerText = _category.toUpperCase();
         categoriesP.style = "background-color: #F8F8F8;";
         innerDiv.append(categoriesP);
     }
@@ -161,6 +170,22 @@ function removeDivs(className) {
         divs[i].remove();
 }
 
+function getJokeWithID(number_length) {
+    request.open('GET', jokesLink+ favorites[number_length]);
+    request.responseType = 'json';
+    request.send();
+    request.onload = function() {
+        arrOfFavs.push(request.response);
+        console.log(number_length);
+        if (number_length < 1) {
+            if (arrOfFavs && arrOfFavs !== [])
+                for (let key in arrOfFavs)
+                    fav_container.append( buildFavDiv(arrOfFavs[key].id, arrOfFavs[key].value, arrOfFavs[key].updated_at, arrOfFavs[key].categories[0]) );
+            return;
+        }
+        getJokeWithID(number_length-1);
+    }
+}
 function getRandomJoke() {
     request.open('GET', randomJokeRequestURL);
     request.responseType = 'json';
@@ -188,111 +213,90 @@ function getAllCategories() {
         builtCategoryVarMenu();
     }
 }
-//TO DO
-function getSearchJoke(search) {
-    request.open('GET', searchRequestURL + search);
+function getSearchJoke() {
+    request.open('GET', searchRequestURL + searchTest);
     request.responseType = 'json';
     request.send();
     request.onload = function() {
-        let allCategories = request.response;
-        console.log(allCategories);
+        arrOfJokes = request.response.result;
+        if (arrOfJokes && arrOfJokes !== [])
+            for (let key in arrOfJokes)
+                jokes_container.append(buildJokeDiv(false, arrOfJokes[key].id, arrOfJokes[key].value, arrOfJokes[key].updated_at, arrOfJokes[key].categories[0]));
     }
 }
 
-function like(thisID) {
-    //TODO
-    //fav_container.append( buildFavDiv(randomJoke.id, randomJoke.value, randomJoke.updated_at, randomJoke.categories[0]) );
+function like_dislike(thisID, thisType) {
+    removeDivs("fav-outer-jokes-div" );
+    updateFavorites();
+    let heartToChange;
+    if (thisType === "_reg") {
+        heartToChange = document.getElementById(thisID + thisType);
+        if (favorites.indexOf(thisID) > -1) {
+            favorites.splice(favorites.indexOf(thisID), 1);
+            heartToChange.src = "heartEGrey.png";
+        } else {
+            favorites.push(thisID);
+            heartToChange.src = "heartFGrey.png";
+        }
+    } else {
+        if (favorites.indexOf(thisID) > -1)
+            favorites.splice(favorites.indexOf(thisID), 1);
+        else
+            favorites.push(thisID);
+    }
+    updateCookies();
+    refreshHearts();
+    /*
+    //console.log(favorites.length);
+    if (favorites !== undefined && favorites !== [])
+        for (let key in favorites) {
+            if (favorites[key] !== "undefined")
+                getJokeWithID(favorites[key]);
+        }
+     */
+    if (favorites.length > 0){
+        arrOfFavs = [];
+        getJokeWithID(favorites.length-1);
+    }
 }
-function dislike(thisID) {
-    //TODO
-}
-
-
-
-
-
-
-
-//main functions
-function favor(id) {
-
-    let divs = document.getElementsByClassName('favorites');
-    for (let i = divs.length - 1; i >= 0; i--)
-        divs[i].remove();
-
-    let favorites = [];
-    let __cookiesNameAndValue;
-    let updateCookies;
-    if (document.cookie !== '' || document.cookie !== "undefined") {
-        let __cookies = document.cookie.split('; ');
-        for (let index = 0; index < __cookies.length; index++) {
-            __cookiesNameAndValue = __cookies[index].split('=');
-            if (__cookiesNameAndValue[0] === 'IDS') {
-                favorites = __cookiesNameAndValue[1].split(',');
+function updateFavorites() {
+    if (document.cookie !== '' && document.cookie !== "undefined") {
+        let cookies = document.cookie.split('; ');
+        for (let index = 0; index < cookies.length; index++) {
+            let cookiesNameAndValue = cookies[index].split('=');
+            if (cookiesNameAndValue[0] === 'IDS') {
+                favorites = cookiesNameAndValue[1].split(',');
                 break;
             }
         }
     }
-    let addToFav = '';
-    if (id !== undefined) {
-        if (document.cookie.indexOf(id) !== -1) {
-            addToFav = "";
-            favorites.unshift(id);
-        } else
-            addToFav = id + ',';
-    }
-
-    updateCookies = 'IDS=' + addToFav + ((__cookiesNameAndValue[1]!==undefined)?__cookiesNameAndValue[1]:'') + '; path=/; max-age=10';
-
-
-    //deleteAllCookies();
-    document.cookie = updateCookies;
-    divs = [];
-    /*
-    //CALLBACK
-    let addImage = (src, size, callback)=>{
-        let img = document.createElement('img');
-        img.src = src;
-        img.style.width = size;
-        img.onload = () => callback(img);
-    };
-    let addDiv = (_id, callback) => {
-        let div = document.createElement('div');
-        div.id =  _id + "_fav";
-        div.className = "favorites";
-        div.onload = () => callback(div);
-    };
-    */
-    if (favorites !== undefined )
-        for (let i = 0; i < favorites.length; i++)
-            if (favorites[i] !== '' && favorites[i] !== undefined) {
-                //fav_container.load();
-                //divs.push(div);
-            }
-    //for (let key in divs)
-    //fav_container.append(divs[key]);
-    /*
-        let div = document.createElement('div');
-        div.id =  id + "_fav";
-        div.className = "favorites";
-
-        let img1 = document.createElement('img');
-        img1.src = "commentGrey.png";
-        img1.style.width = "40px";
-
-        let img2 = document.createElement('img');
-        img2.src = "heartFullWhite.png";
-        img2.style.width = "20px";
-
-        let p = document.createElement('p');
-        p.innerText = "No one truly knows who's Chuck Norris' real father. No one is biologically strong enough for this. He must've conceived himself.";
-        div.append(img1, img2, p);
-        fav_container.append(div);
-
-    */
 }
-
-
+function refreshHearts() {
+    let allHeartElements = document.getElementsByClassName('heart');
+    let type, _id;
+    const isEqual = (element) => element === _id;
+    for (let key = 0; key < allHeartElements; key++){
+        if (allHeartElements[key].id !== undefined) {
+            type = allHeartElements[key].id.slice(allHeartElements[key].id.length - 4, allHeartElements[key].id.length);
+            _id = allHeartElements[key].id.slice(0, allHeartElements[key].id.length - 4);
+            if (type === "_reg" && favorites.some(isEqual) && allHeartElements[key].src.charAt(allHeartElements[key].src.length - 9) === "F")
+                allHeartElements[key].src = "heartEGrey.png";
+        }
+    }
+}
+function updateCookies() {
+    let updateCookies;
+    if (favorites !== undefined && favorites !== []) {
+        updateCookies = favorites[0];
+        if (favorites.length > 1)
+            for (let i = 1; i < favorites.length; i++)
+                if (favorites[i] !== '' && favorites[i] !== undefined)
+                    updateCookies += "," + favorites[i];
+    }
+    deleteAllCookies();
+    if (updateCookies !== undefined)
+        document.cookie = "IDS=" + updateCookies + "; path=/; max-age=10";
+}
 function getJoke() {
     removeDivs("outer-jokes-div reg" );
     switch (variant) {
@@ -303,10 +307,13 @@ function getJoke() {
             getRandomJokeFromCategories();
             break;
         case 'Search':
-
+            searchTest = textArea.value;
+            if (searchTest.length > 2)
+                getSearchJoke();
+            else
+                alert("Not enough length to search!");
             break;
     }
-    //removeDivs("fav-outer-jokes-div" );
 }
 
 //functions that works with interface
@@ -367,7 +374,6 @@ function builtCategoryVarMenu() {
     let newCategory = document.getElementById('animal');
     newCategory.style.backgroundColor = '#F8F8F8';
     newCategory.style.color = '#000';
-    chosenCategory = 'animal';
 };
 function chooseVar(text) {
     let prevCategory = document.getElementById(chosenCategory);
@@ -380,7 +386,7 @@ function chooseVar(text) {
     chosenCategory = text;
 }
 
-//spec functions, not mine...
+//spec functions, not mine btw...
 /*
 function setCookie(name, value, options = {}) {
 

@@ -16,7 +16,7 @@
                 <h2>Let's try to find a joke for you:</h2>
                 <div class="menu">
                     <div class="menu-var" style="margin: 10px 0 10px 0;">
-                        <div id="Random" style="display: inline-flex;" onclick="changeMenuVar('Random')">
+                        <div id="Random" style="display: inline-flex;" onclick="changeMenuVar('Random'); return false;">
                             <div id="circle-outer-random" class="circle-outer">
                                 <div id="circle-inner-random" class="circle-inner">
                                 </div>
@@ -25,7 +25,7 @@
                         </div>
                     </div>
                     <div class="menu-var" style="margin: 10px 0 10px 0;">
-                        <div id="FromCategories" style="display: inline-flex;" onclick="changeMenuVar('FromCategories')">
+                        <div id="FromCategories" style="display: inline-flex;" onclick="changeMenuVar('FromCategories'); return false;">
                             <div id="circle-outer-categories" class="circle-outer">
                                 <div id="circle-inner-categories" class="circle-inner">
                                 </div>
@@ -34,15 +34,10 @@
                         </div>
                     </div>
                     <div id="variantsMenu" hidden>
-                        <!--
-                        <button id="varAnimal" onclick="chooseVar('varAnimal')">Animal</button>
-                        <button id="varCareer" onclick="chooseVar('varCareer')">Career</button>
-                        <button id="varCelebrity" onclick="chooseVar('varCelebrity')">Celebrity</button>
-                        <button id="varDev" onclick="chooseVar('varDev')">Dev</button>
-                        -->
+
                     </div>
                     <div class="menu-var" style="margin: 10px 0 10px 0;">
-                        <div id="Search" style="display: inline-flex;" onclick="changeMenuVar('Search')">
+                        <div id="Search" style="display: inline-flex;" onclick="changeMenuVar('Search'); return false;">
                             <div id="circle-outer-search" class="circle-outer">
                                 <div id="circle-inner-search" class="circle-inner">
                                 </div>
@@ -55,29 +50,32 @@
                 <button id="getAJoke" onclick="getJoke(); return false;">Get a joke</button>
                 <div id="jokes-container" class="jokes">
 
-
-
                 </div>
             </div>
         </div>
         <div id="__wall"></div>
         <div id="__aside">
-            <div id="FavoriteButton" onclick="showAside()" style="display: inline-flex;">
-                <div id="circle">
-                </div>
-                <p style="margin: 0 0 0 15px; font-weight: 500; font-size: 28px; line-height: 28px;">Favorite</p>
-            </div>
             <div id="fav-container" class="fav">
 
-
             </div>
+        </div>
+        <div id="FavoriteButton" onclick="showAside(); return false;" style="display: inline-flex;">
+            <div id="circle">
+            </div>
+            <p style="margin: 0 0 0 15px; font-weight: 500; font-size: 28px; line-height: 28px;">Favorite</p>
         </div>
     </body>
     <script src="script1.js"></script>
 </html>
 <!--
+
+<button id="varAnimal" onclick="chooseVar('varAnimal')">Animal</button>
+<button id="varCareer" onclick="chooseVar('varCareer')">Career</button>
+<button id="varCelebrity" onclick="chooseVar('varCelebrity')">Celebrity</button>
+<button id="varDev" onclick="chooseVar('varDev')">Dev</button>
+
 <div class="outer-jokes-div" >
-    <img class="heart" id="XNaAxUduSw6zANDaIEab7A" src="heartEmptyGrey.png"  onclick="favor(this.id)">
+    <img class="heart" id="XNaAxUduSw6zANDaIEab7A" src="heartEGrey.png"  onclick="favor(this.id)">
     <div class="middle-jokes-div" style="display: inline-flex; margin-top: 10px">
         <img class="commentImage" src="commentWhite.png">
         <div style="margin-left: 20px">
@@ -92,12 +90,5 @@
             <p class="categoriesOfDiv">CELEBRITY</p>
         </div>
     </div>
-</div>
-
-
-<div>
-    <img src="commentGrey.png" width="40px">
-    <img class="heart" src="heartFullWhite.png" width="20px">
-    <p>No one truly knows who's Chuck Norris' real father. No one is biologically strong enough for this. He must've conceived himself.</p>
 </div>
 -->
