@@ -43,6 +43,7 @@ window.onload = () => {
 function buildJokeDiv(isFav, jokesID, jokesText, lastUpdateTime, _category) {
     let outerDiv = document.createElement('div');
     outerDiv.className = "outer-jokes-div reg";
+    outerDiv.style.font = "font-family: Roboto, sans-serif;";
 
     let heartImage = document.createElement('img');
     heartImage.src = (isFav)? "img/heartFGrey.png" : "img/heartEGrey.png";
@@ -59,7 +60,7 @@ function buildJokeDiv(isFav, jokesID, jokesText, lastUpdateTime, _category) {
     commentImage.className = "commentImage";
 
     let innerDiv = document.createElement('div');
-    innerDiv.style = "margin-left: 20px";
+    innerDiv.style = "margin-left: 20px;";
 
     let idDiv = document.createElement('div');
     idDiv.className = "id-text reg";
@@ -78,6 +79,7 @@ function buildJokeDiv(isFav, jokesID, jokesText, lastUpdateTime, _category) {
 
     let textP = document.createElement('p');
     textP.innerText = jokesText;
+    textP.style.display = "inline-block";
 
     let lastUpdateP = document.createElement('p');
     lastUpdateP.className = "lastUpdateP";
@@ -101,7 +103,9 @@ function buildJokeDiv(isFav, jokesID, jokesText, lastUpdateTime, _category) {
 function buildFavDiv(jokesID, jokesText, lastUpdateTime, _category) {
     let outerDiv = document.createElement('div');
     outerDiv.className = "fav-outer-jokes-div";
-    outerDiv.style = "margin: 20px 20px 0 20px; padding: 20px";
+    outerDiv.style.margin = "20px 20px 0 20px";
+    outerDiv.style.padding = "20px";
+    outerDiv.style.font = "font-family: Roboto, sans-serif;";
 
     let heartImage = document.createElement('img');
     heartImage.src = "img/heartFWhite.png";
@@ -118,7 +122,7 @@ function buildFavDiv(jokesID, jokesText, lastUpdateTime, _category) {
     commentImage.className = "commentImage";
 
     let innerDiv = document.createElement('div');
-    innerDiv.style = "margin: 0 0 0 20px; padding: 0 ";
+    innerDiv.style = "margin: 0 0 0 20px; padding: 0;";
 
     let idDiv = document.createElement('div');
     idDiv.className = "id-text fav";
@@ -136,6 +140,7 @@ function buildFavDiv(jokesID, jokesText, lastUpdateTime, _category) {
 
     let textP = document.createElement('p');
     textP.innerText = jokesText;
+    textP.style.display = "inline-block";
 
     let lastUpdateP = document.createElement('p');
     lastUpdateP.className = "lastUpdateP";
@@ -287,7 +292,7 @@ function updateCookies() {
                     updateCookies += "," + favorites[i];
     }
     if (updateCookies !== undefined)
-        document.cookie = "IDS=" + updateCookies + "; path=/; max-age=10";
+        document.cookie = "IDS=" + updateCookies + "; path=/; max-age=60";
     else
         document.cookie = "IDS=; path=/; max-age=-1";
 }

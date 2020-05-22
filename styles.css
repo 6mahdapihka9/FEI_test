@@ -1,6 +1,6 @@
 body{
     margin: 0;
-    font-family: Roboto;
+    font-family: Roboto, sans-serif;
     font-style: normal;
     color: #333333;
 }
@@ -157,6 +157,9 @@ p {
 .id-text p, .lastUpdateP {
     color: #ABABAB;
 }
+h1, h2, p, a{
+    font-family: Roboto, sans-serif;
+}
 /*crossbrowser*/
 @media (min-width: 1239px) {
 
@@ -263,13 +266,4 @@ p {
         height: 28px;
         display: inline-block;
     }
-    /*
-    #circle{
-        display: inline-block;
-        width: 28px;
-        height: 28px;
-        background-color: #000;
-        border-radius: 50%;
-    }
-     */
 }
