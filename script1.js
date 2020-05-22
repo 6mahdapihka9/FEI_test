@@ -3,6 +3,7 @@ const __main = document.getElementById('__main');
 const __aside = document.getElementById('__aside');
 const __asideBackground = document.getElementById('__asideBackground');
 const __wall = document.getElementById('__wall');
+const favMenuButton = document.getElementById('favMenuButton');
 const MSI2020 = document.getElementById('MSI2020');
 const variantsMenu = document.getElementById('variantsMenu');
 const textArea = document.getElementsByTagName('textarea')[0];
@@ -10,7 +11,6 @@ const jokes_container = document.getElementById('jokes-container');
 const fav_container = document.getElementById('fav-container');
 let allOuterCircles = document.getElementsByClassName('circle-outer');
 let allInnerCircles = document.getElementsByClassName('circle-inner');
-
 //chuck norris API links
 let jokesLink = "https://api.chucknorris.io/jokes/";
 let randomJokeRequestURL = "https://api.chucknorris.io/jokes/random";
@@ -18,7 +18,6 @@ let randomJokeFromCategoriesRequestURL ="https://api.chucknorris.io/jokes/random
 let allCategoriesRequestURL = "https://api.chucknorris.io/jokes/categories";
 let searchRequestURL = "https://api.chucknorris.io/jokes/search?query=";
 let request = new XMLHttpRequest();
-
 //special variables
 let variant = 'Random';
 let allCategories = [];
@@ -27,19 +26,20 @@ let searchTest;
 let randomJoke;
 let arrOfJokes = [];
 let arrOfFavs = [];
-
+let arrOfHearts = [];
 let favorites = [];
-
 //initialization
-if (+window.innerWidth > 1240)
-    __main.style.width = +window.innerWidth - 480 + "px";
-getAllCategories();
-updateFavorites();
-if (favorites.length > 0) {
-    arrOfFavs = [];
-    getJokeWithID(favorites.length - 1);
-}
-
+console.log("cookies =  " + document.cookie);
+window.onload = () => {
+    if (+window.innerWidth > 1240)
+        __main.style.width = +window.innerWidth - 480 + "px";
+    getAllCategories();
+    updateFavorites();
+    if (favorites.length > 0) {
+        arrOfFavs = [];
+        getJokeWithID(favorites.length - 1);
+    }
+};
 //main functions
 function buildJokeDiv(isFav, jokesID, jokesText, lastUpdateTime, _category) {
     let outerDiv = document.createElement('div');
@@ -186,6 +186,7 @@ function getRandomJoke() {
     request.onload = function() {
         randomJoke = request.response;
         jokes_container.append( buildJokeDiv(false, randomJoke.id, randomJoke.value, randomJoke.updated_at, randomJoke.categories[0]) );
+        arrOfHearts = [randomJoke.id + "_reg"];
     }
 }
 function getRandomJokeFromCategories() {
@@ -195,6 +196,7 @@ function getRandomJokeFromCategories() {
     request.onload = function() {
         randomJoke = request.response;
         jokes_container.append( buildJokeDiv(false, randomJoke.id, randomJoke.value, randomJoke.updated_at, chosenCategory) );
+        arrOfHearts = [[randomJoke.id, "_reg"]];
     }
 }
 function getAllCategories() {
@@ -212,9 +214,12 @@ function getSearchJoke() {
     request.send();
     request.onload = function() {
         arrOfJokes = request.response.result;
+        arrOfHearts = [];
         if (arrOfJokes && arrOfJokes !== [])
-            for (let key in arrOfJokes)
+            for (let key in arrOfJokes) {
                 jokes_container.append(buildJokeDiv(false, arrOfJokes[key].id, arrOfJokes[key].value, arrOfJokes[key].updated_at, arrOfJokes[key].categories[0]));
+                arrOfHearts.push([arrOfJokes[key].id, "_reg"]);
+            }
     }
 }
 
@@ -238,13 +243,7 @@ function like_dislike(thisID, thisType) {
             favorites.push(thisID);
     }
     updateCookies();
-
-    //ToDo
-    //this shit is not working properly!!!!!!!!!!!!!!!!!!!!!!!!!!
     refreshHearts();
-    //this shit is not working properly!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-
     if (favorites.length > 0){
         arrOfFavs = [];
         getJokeWithID(favorites.length-1);
@@ -260,23 +259,22 @@ function updateFavorites() {
                 break;
             }
         }
+    } else {
+        favorites = [];
     }
 }
 function refreshHearts() {
-    let allHeartElements = document.getElementsByClassName('heart');
-    let type, _id;
-
-    for (let key = 0; key < allHeartElements.length; key++){
-        if (allHeartElements[key].id !== undefined) {
-            type = allHeartElements[key].id.slice(allHeartElements[key].id.length - 4, allHeartElements[key].id.length);
-            _id = allHeartElements[key].id.slice(0, allHeartElements[key].id.length - 4);
-            let isEqual = (element) => element === _id;
-            if (type === "_reg" && favorites.some(isEqual) && allHeartElements[key].src.charAt(allHeartElements[key].src.length - 9) === "F")
-                allHeartElements[key].src = "heartEGrey.png";
+    if (arrOfHearts !== [])
+        for (let index = 0; index < arrOfHearts; index++){
+            let heartToCheck = document.getElementById(arrOfHearts[index][0] + arrOfHearts[index][1]);
+            if ( favorites.indexOf(arrOfHearts[index][0]) > -1 )
+                heartToCheck.src = "heartEGrey.png";
+            else
+                heartToCheck.src = "heartFGrey.png";
         }
-    }
 }
 function updateCookies() {
+    deleteAllCookies();
     let updateCookies;
     if (favorites !== undefined && favorites !== []) {
         updateCookies = favorites[0];
@@ -285,9 +283,10 @@ function updateCookies() {
                 if (favorites[i] !== '' && favorites[i] !== undefined)
                     updateCookies += "," + favorites[i];
     }
-    deleteAllCookies();
     if (updateCookies !== undefined)
         document.cookie = "IDS=" + updateCookies + "; path=/; max-age=10";
+    else
+        document.cookie = "IDS=; path=/; max-age=-1";
 }
 function getJoke() {
     removeDivs("outer-jokes-div reg" );
@@ -307,7 +306,6 @@ function getJoke() {
             break;
     }
 }
-
 //functions that works with interface
 function showAside(){
     if (window.innerWidth < 1239)
@@ -315,12 +313,14 @@ function showAside(){
             __main.style.position = 'fixed';
             __wall.style.display = 'inline';
             __asideBackground.style.display = 'inline-block';
+            favMenuButton.src = "favCloseIcon.png";
             __aside.style.display = 'inline-block';
             MSI2020.style.position = 'fixed';
         } else {
             __main.style.position = 'absolute';
             __wall.style.display = 'none';
             __asideBackground.style.display = 'none';
+            favMenuButton.src = "favOpenIcon.png";
             __aside.style.display = 'none';
             MSI2020.style.position = 'absolute';
         }
@@ -379,7 +379,6 @@ function chooseVar(text) {
     newCategory.style.color = '#000';
     chosenCategory = text;
 }
-
 //spec functions, not mine btw...
 /*
 function setCookie(name, value, options = {}) {
