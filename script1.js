@@ -29,7 +29,6 @@ let arrOfFavs = [];
 let arrOfHearts = [];
 let favorites = [];
 //initialization
-console.log("cookies =  " + document.cookie);
 window.onload = () => {
     if (+window.innerWidth > 1240)
         __main.style.width = +window.innerWidth - 480 + "px";
@@ -186,7 +185,7 @@ function getRandomJoke() {
     request.onload = function() {
         randomJoke = request.response;
         jokes_container.append( buildJokeDiv(false, randomJoke.id, randomJoke.value, randomJoke.updated_at, randomJoke.categories[0]) );
-        arrOfHearts = [randomJoke.id + "_reg"];
+        arrOfHearts = randomJoke.id;
     }
 }
 function getRandomJokeFromCategories() {
@@ -196,7 +195,7 @@ function getRandomJokeFromCategories() {
     request.onload = function() {
         randomJoke = request.response;
         jokes_container.append( buildJokeDiv(false, randomJoke.id, randomJoke.value, randomJoke.updated_at, chosenCategory) );
-        arrOfHearts = [[randomJoke.id, "_reg"]];
+        arrOfHearts = [randomJoke.id];
     }
 }
 function getAllCategories() {
@@ -218,7 +217,7 @@ function getSearchJoke() {
         if (arrOfJokes && arrOfJokes !== [])
             for (let key in arrOfJokes) {
                 jokes_container.append(buildJokeDiv(false, arrOfJokes[key].id, arrOfJokes[key].value, arrOfJokes[key].updated_at, arrOfJokes[key].categories[0]));
-                arrOfHearts.push([arrOfJokes[key].id, "_reg"]);
+                arrOfHearts.push(arrOfJokes[key].id);
             }
     }
 }
@@ -237,9 +236,13 @@ function like_dislike(thisID, thisType) {
             heartToChange.src = "heartFGrey.png";
         }
     } else {
-        if (favorites.indexOf(thisID) > -1)
+        if (favorites.indexOf(thisID) > -1) {
             favorites.splice(favorites.indexOf(thisID), 1);
-        else
+            if ( arrOfHearts.indexOf(thisID) > -1){
+                heartToChange = document.getElementById(thisID + "_reg");
+                heartToChange.src = "heartEGrey.png";
+            }
+        } else
             favorites.push(thisID);
     }
     updateCookies();
@@ -266,7 +269,7 @@ function updateFavorites() {
 function refreshHearts() {
     if (arrOfHearts !== [])
         for (let index = 0; index < arrOfHearts; index++){
-            let heartToCheck = document.getElementById(arrOfHearts[index][0] + arrOfHearts[index][1]);
+            let heartToCheck = document.getElementById(arrOfHearts[index] + "_reg");
             if ( favorites.indexOf(arrOfHearts[index][0]) > -1 )
                 heartToCheck.src = "heartEGrey.png";
             else
