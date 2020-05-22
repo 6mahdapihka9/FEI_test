@@ -45,7 +45,7 @@ function buildJokeDiv(isFav, jokesID, jokesText, lastUpdateTime, _category) {
     outerDiv.className = "outer-jokes-div reg";
 
     let heartImage = document.createElement('img');
-    heartImage.src = (isFav)? "heartFGrey.png" : "heartEGrey.png";
+    heartImage.src = (isFav)? "img/heartFGrey.png" : "img/heartEGrey.png";
     heartImage.id = jokesID + "_reg";
     heartImage.className = "heart";
     heartImage.onclick = () => like_dislike(jokesID, "_reg");
@@ -55,7 +55,7 @@ function buildJokeDiv(isFav, jokesID, jokesText, lastUpdateTime, _category) {
     middleDiv.style = "display: inline-flex; margin-top: 10px";
 
     let commentImage = document.createElement('img');
-    commentImage.src = "commentWhite.png";
+    commentImage.src = "img/commentWhite.png";
     commentImage.className = "commentImage";
 
     let innerDiv = document.createElement('div');
@@ -104,7 +104,7 @@ function buildFavDiv(jokesID, jokesText, lastUpdateTime, _category) {
     outerDiv.style = "margin: 20px 20px 0 20px; padding: 20px";
 
     let heartImage = document.createElement('img');
-    heartImage.src = "heartFWhite.png";
+    heartImage.src = "img/heartFWhite.png";
     heartImage.id = jokesID + "_fav";
     heartImage.className = "heart";
     heartImage.onclick = () => like_dislike(jokesID, "_fav");
@@ -114,7 +114,7 @@ function buildFavDiv(jokesID, jokesText, lastUpdateTime, _category) {
     middleDiv.style = "display: inline-flex; margin: 0; padding: 0";
 
     let commentImage = document.createElement('img');
-    commentImage.src = "commentGrey.png";
+    commentImage.src = "img/commentGrey.png";
     commentImage.className = "commentImage";
 
     let innerDiv = document.createElement('div');
@@ -230,17 +230,17 @@ function like_dislike(thisID, thisType) {
         heartToChange = document.getElementById(thisID + thisType);
         if (favorites.indexOf(thisID) > -1) {
             favorites.splice(favorites.indexOf(thisID), 1);
-            heartToChange.src = "heartEGrey.png";
+            heartToChange.src = "img/heartEGrey.png";
         } else {
             favorites.push(thisID);
-            heartToChange.src = "heartFGrey.png";
+            heartToChange.src = "img/heartFGrey.png";
         }
     } else {
         if (favorites.indexOf(thisID) > -1) {
             favorites.splice(favorites.indexOf(thisID), 1);
             if ( arrOfHearts.indexOf(thisID) > -1){
                 heartToChange = document.getElementById(thisID + "_reg");
-                heartToChange.src = "heartEGrey.png";
+                heartToChange.src = "img/heartEGrey.png";
             }
         } else
             favorites.push(thisID);
@@ -271,9 +271,9 @@ function refreshHearts() {
         for (let index = 0; index < arrOfHearts; index++){
             let heartToCheck = document.getElementById(arrOfHearts[index] + "_reg");
             if ( favorites.indexOf(arrOfHearts[index][0]) > -1 )
-                heartToCheck.src = "heartEGrey.png";
+                heartToCheck.src = "img/heartEGrey.png";
             else
-                heartToCheck.src = "heartFGrey.png";
+                heartToCheck.src = "img/heartFGrey.png";
         }
 }
 function updateCookies() {
@@ -316,14 +316,14 @@ function showAside(){
             __main.style.position = 'fixed';
             __wall.style.display = 'inline';
             __asideBackground.style.display = 'inline-block';
-            favMenuButton.src = "favCloseIcon.png";
+            favMenuButton.src = "img/favCloseIcon.png";
             __aside.style.display = 'inline-block';
             MSI2020.style.position = 'fixed';
         } else {
             __main.style.position = 'absolute';
             __wall.style.display = 'none';
             __asideBackground.style.display = 'none';
-            favMenuButton.src = "favOpenIcon.png";
+            favMenuButton.src = "img/favOpenIcon.png";
             __aside.style.display = 'none';
             MSI2020.style.position = 'absolute';
         }
