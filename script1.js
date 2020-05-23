@@ -6,7 +6,8 @@ const __wall = document.getElementById('__wall');
 const favMenuButton = document.getElementById('favMenuButton');
 const MSI2020 = document.getElementById('MSI2020');
 const variantsMenu = document.getElementById('variantsMenu');
-const textArea = document.getElementsByTagName('textarea')[0];
+const divTextarea = document.getElementById('divTextarea');
+const textArea = document.getElementById('textarea');
 const jokes_container = document.getElementById('jokes-container');
 const fav_container = document.getElementById('fav-container');
 let allOuterCircles = document.getElementsByClassName('circle-outer');
@@ -340,7 +341,7 @@ function changeMenuVar(text) {
         allInnerCircles[i].style.backgroundColor = "#FFF";
 
     variantsMenu.hidden = true;
-    textArea.hidden = true;
+    divTextarea.hidden = true;
     switch (text) {
         case 'Random':
             variant = 'Random';
@@ -357,7 +358,7 @@ function changeMenuVar(text) {
             variant = 'Search';
             document.getElementById('circle-outer-search').style.border = "2px solid black";
             document.getElementById('circle-inner-search').style.backgroundColor ="black";
-            textArea.hidden = false;
+            divTextarea.hidden = false;
             break;
     }
 }
@@ -376,7 +377,7 @@ function builtCategoryVarMenu() {
     let newCategory = document.getElementById('animal');
     newCategory.style.backgroundColor = '#F8F8F8';
     newCategory.style.color = '#000';
-};
+}
 function chooseVar(text) {
     let prevCategory = document.getElementById(chosenCategory);
     prevCategory.style.backgroundColor = '#FFF';

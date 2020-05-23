@@ -46,7 +46,11 @@
                             <div  style="margin-left: 15px">Search</div>
                         </div>
                     </div>
-                    <textarea placeholder="Free text search..." hidden></textarea>
+                    <div id="divTextarea" hidden>
+                        <label for="textarea">
+                            <input id="textarea" type="text" aria-placeholder="color: #ABABAB" placeholder="Free text search...">
+                        </label>
+                    </div>
                 </div>
                 <button id="getAJoke" onclick="getJoke(); return false;">Get a joke</button>
                 <div id="jokes-container" class="jokes">
