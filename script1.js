@@ -58,7 +58,7 @@ function buildJokeDiv(isFav, jokesID, jokesText, lastUpdateTime, _category) {
 
     let middleDiv = document.createElement('div');
     middleDiv.className = "middle-jokes-div reg";
-    middleDiv.style = "display: inline-flex; margin-top: 10px";
+    middleDiv.style = "display: flex; margin-top: 27px";
 
     let commentImage = document.createElement('img');
     commentImage.src = "img/commentWhite.png";
@@ -124,7 +124,7 @@ function buildFavDiv(jokesID, jokesText, lastUpdateTime, _category) {
 
     let middleDiv = document.createElement('div');
     middleDiv.className = "middle-jokes-div fav";
-    middleDiv.style = "display: inline-flex; margin: 0; padding: 0";
+    middleDiv.style = "display: flex; margin: 27px 0 0 0; padding: 0";
 
     let commentImage = document.createElement('img');
     commentImage.src = "img/commentGrey.png";
