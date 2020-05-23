@@ -18,7 +18,11 @@ let randomJokeRequestURL = "https://api.chucknorris.io/jokes/random";
 let randomJokeFromCategoriesRequestURL ="https://api.chucknorris.io/jokes/random?category=";
 let allCategoriesRequestURL = "https://api.chucknorris.io/jokes/categories";
 let searchRequestURL = "https://api.chucknorris.io/jokes/search?query=";
-let request = new XMLHttpRequest();
+let request_jokesLink = new XMLHttpRequest();
+let request_randomJokeRequestURL = new XMLHttpRequest();
+let request_randomJokeFromCategoriesRequestURL = new XMLHttpRequest();
+let request_allCategoriesRequestURL = new XMLHttpRequest();
+let request_searchRequestURL = new XMLHttpRequest();
 //special variables
 let variant = 'Random';
 let allCategories = [];
@@ -30,10 +34,10 @@ let arrOfFavs = [];
 let arrOfHearts = [];
 let favorites = [];
 //initialization
+if (+window.innerWidth > 1240)
+    __main.style.width = +window.innerWidth - 480 + "px";
+getAllCategories();
 window.onload = () => {
-    if (+window.innerWidth > 1240)
-        __main.style.width = +window.innerWidth - 480 + "px";
-    getAllCategories();
     updateFavorites();
     if (favorites.length > 0) {
         arrOfFavs = [];
@@ -78,17 +82,19 @@ function buildJokeDiv(isFav, jokesID, jokesText, lastUpdateTime, _category) {
 
     idDiv.append(idP, idA);
 
-    let br = document.createElement('br');
+    let br1 = document.createElement('br');
 
     let textP = document.createElement('p');
     textP.innerText = jokesText;
     textP.style.display = "inline-block";
 
+    let br2 = document.createElement('br');
+
     let lastUpdateP = document.createElement('p');
     lastUpdateP.className = "lastUpdateP";
     lastUpdateP.innerText = "Last update: " + lastUpdateTime;
 
-    innerDiv.append(idDiv, br, textP, lastUpdateP);
+    innerDiv.append(idDiv, br1, textP, br2, lastUpdateP);
 
     if (_category) {
         let categoriesP = document.createElement('p');
@@ -141,17 +147,19 @@ function buildFavDiv(jokesID, jokesText, lastUpdateTime, _category) {
 
     idDiv.append(idP, idA);
 
-    let br = document.createElement('br');
+    let br1 = document.createElement('br');
 
     let textP = document.createElement('p');
     textP.innerText = jokesText;
     textP.style.display = "inline-block";
 
+    let br2 = document.createElement('br');
+
     let lastUpdateP = document.createElement('p');
     lastUpdateP.className = "lastUpdateP";
     lastUpdateP.innerText = "Last update: " + lastUpdateTime;
 
-    innerDiv.append(idDiv, br, textP, lastUpdateP);
+    innerDiv.append(idDiv, br1, textP, br2, lastUpdateP);
 
     if (_category) {
         let categoriesP = document.createElement('p');
@@ -174,11 +182,11 @@ function removeDivs(className) {
 }
 
 function getJokeWithID(number_length) {
-    request.open('GET', jokesLink+ favorites[number_length]);
-    request.responseType = 'json';
-    request.send();
-    request.onload = function() {
-        arrOfFavs.push(request.response);
+    request_jokesLink.open('GET', jokesLink+ favorites[number_length]);
+    request_jokesLink.responseType = 'json';
+    request_jokesLink.send();
+    request_jokesLink.onload = function() {
+        arrOfFavs.push(request_jokesLink.response);
         if (number_length < 1) {
             if (arrOfFavs && arrOfFavs !== [])
                 for (let key in arrOfFavs)
@@ -189,40 +197,42 @@ function getJokeWithID(number_length) {
     }
 }
 function getRandomJoke() {
-    request.open('GET', randomJokeRequestURL);
-    request.responseType = 'json';
-    request.send();
-    request.onload = function() {
-        randomJoke = request.response;
+    request_randomJokeRequestURL.open('GET', randomJokeRequestURL);
+    request_randomJokeRequestURL.responseType = 'json';
+    request_randomJokeRequestURL.send();
+    request_randomJokeRequestURL.onload = function() {
+        randomJoke = request_randomJokeRequestURL.response;
         jokes_container.append( buildJokeDiv(false, randomJoke.id, randomJoke.value, randomJoke.updated_at, randomJoke.categories[0]) );
         arrOfHearts = randomJoke.id;
     }
 }
 function getRandomJokeFromCategories() {
-    request.open('GET', randomJokeFromCategoriesRequestURL + chosenCategory);
-    request.responseType = 'json';
-    request.send();
-    request.onload = function() {
-        randomJoke = request.response;
+    request_randomJokeFromCategoriesRequestURL.open('GET', randomJokeFromCategoriesRequestURL + chosenCategory);
+    request_randomJokeFromCategoriesRequestURL.responseType = 'json';
+    request_randomJokeFromCategoriesRequestURL.send();
+    request_randomJokeFromCategoriesRequestURL.onload = function() {
+        randomJoke = request_randomJokeFromCategoriesRequestURL.response;
         jokes_container.append( buildJokeDiv(false, randomJoke.id, randomJoke.value, randomJoke.updated_at, chosenCategory) );
         arrOfHearts = [randomJoke.id];
     }
 }
 function getAllCategories() {
-    request.open('GET', allCategoriesRequestURL);
-    request.responseType = 'json';
-    request.send();
-    request.onload = function() {
-        allCategories = request.response;
+    request_allCategoriesRequestURL.open('GET', allCategoriesRequestURL);
+    request_allCategoriesRequestURL.responseType = 'json';
+    request_allCategoriesRequestURL.send();
+    console.log("gagagagag1");
+    request_allCategoriesRequestURL.onload = function() {
+        console.log("gagagagag2");
+        allCategories = request_allCategoriesRequestURL.response;
         builtCategoryVarMenu();
     }
 }
 function getSearchJoke() {
-    request.open('GET', searchRequestURL + searchTest);
-    request.responseType = 'json';
-    request.send();
-    request.onload = function() {
-        arrOfJokes = request.response.result;
+    request_searchRequestURL.open('GET', searchRequestURL + searchTest);
+    request_searchRequestURL.responseType = 'json';
+    request_searchRequestURL.send();
+    request_searchRequestURL.onload = function() {
+        arrOfJokes = request_searchRequestURL.response.result;
         arrOfHearts = [];
         if (arrOfJokes && arrOfJokes !== [])
             for (let key in arrOfJokes) {
@@ -367,6 +377,7 @@ function changeMenuVar(text) {
     }
 }
 function builtCategoryVarMenu() {
+    console.log("gagagagag");
     //default choice of var menu
     variant = 'Random';
     document.getElementById('circle-outer-random').style.border = "2px solid black";
