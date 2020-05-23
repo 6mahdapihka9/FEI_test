@@ -78,6 +78,8 @@ function buildJokeDiv(isFav, jokesID, jokesText, lastUpdateTime, _category) {
 
     idDiv.append(idP, idA);
 
+    let br = document.createElement('br');
+
     let textP = document.createElement('p');
     textP.innerText = jokesText;
     textP.style.display = "inline-block";
@@ -86,7 +88,7 @@ function buildJokeDiv(isFav, jokesID, jokesText, lastUpdateTime, _category) {
     lastUpdateP.className = "lastUpdateP";
     lastUpdateP.innerText = "Last update: " + lastUpdateTime;
 
-    innerDiv.append(idDiv, textP, lastUpdateP);
+    innerDiv.append(idDiv, br, textP, lastUpdateP);
 
     if (_category) {
         let categoriesP = document.createElement('p');
@@ -139,6 +141,8 @@ function buildFavDiv(jokesID, jokesText, lastUpdateTime, _category) {
 
     idDiv.append(idP, idA);
 
+    let br = document.createElement('br');
+
     let textP = document.createElement('p');
     textP.innerText = jokesText;
     textP.style.display = "inline-block";
@@ -147,7 +151,7 @@ function buildFavDiv(jokesID, jokesText, lastUpdateTime, _category) {
     lastUpdateP.className = "lastUpdateP";
     lastUpdateP.innerText = "Last update: " + lastUpdateTime;
 
-    innerDiv.append(idDiv, textP, lastUpdateP);
+    innerDiv.append(idDiv, br, textP, lastUpdateP);
 
     if (_category) {
         let categoriesP = document.createElement('p');
