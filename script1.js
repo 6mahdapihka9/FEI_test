@@ -220,9 +220,7 @@ function getAllCategories() {
     request_allCategoriesRequestURL.open('GET', allCategoriesRequestURL);
     request_allCategoriesRequestURL.responseType = 'json';
     request_allCategoriesRequestURL.send();
-    console.log("gagagagag1");
     request_allCategoriesRequestURL.onload = function() {
-        console.log("gagagagag2");
         allCategories = request_allCategoriesRequestURL.response;
         builtCategoryVarMenu();
     }
@@ -377,7 +375,6 @@ function changeMenuVar(text) {
     }
 }
 function builtCategoryVarMenu() {
-    console.log("gagagagag");
     //default choice of var menu
     variant = 'Random';
     document.getElementById('circle-outer-random').style.border = "2px solid black";
