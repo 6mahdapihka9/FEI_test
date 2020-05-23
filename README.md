@@ -7,4 +7,4 @@ Also by structuring css and using jQuery selectors to minimize code size.
 
 
 
-Maybe build icon by css or js, but who want's to bother with thing like this, right? :)
+Maybe build icon with css or js, but who want's to bother with thing like this, right? :)
