@@ -80,8 +80,8 @@ textarea{
     pointer-events: none;
 }
 .middle-jokes-div div{
-    margin-top: 10px;
-    display: inline-flex;
+    margin-top: 27px;
+    display: flex;
     all: initial;
 }
 .fav div{
